@@ -37,8 +37,9 @@ test("POST /encrypt and /decrypt round-trip a nested object", async () => {
   const encryptedResponse = await postJson(app, "/encrypt", JSON.stringify(original));
   const encrypted = await encryptedResponse.json();
   const decryptedResponse = await postJson(app, "/decrypt", JSON.stringify(encrypted));
+  const decrypted = await decryptedResponse.json();
 
   expect(encryptedResponse.status).toBe(200);
   expect(decryptedResponse.status).toBe(200);
-  expect(await decryptedResponse.json()).toEqual(original);
+  expect(decrypted).toEqual(original);
 });
