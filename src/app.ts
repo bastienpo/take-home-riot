@@ -11,6 +11,14 @@ const OPENAPI_URL = "/openapi.json";
 export function createApp() {
   const app = new OpenAPIHono();
 
+  app.on("POST", ["/encrypt", "/decrypt", "/sign", "/verify"], async (context, next) => {
+    if (context.req.raw.body === null) {
+      return context.text("Request body is required", 400);
+    }
+
+    await next();
+  });
+
   app.get("/scalar", Scalar({ url: OPENAPI_URL }));
 
   app.doc31(OPENAPI_URL, {
