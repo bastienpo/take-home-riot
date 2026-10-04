@@ -8,4 +8,3 @@ export const verifyRequestSchema = z
   .openapi("VerifyRequest");
 
 export const signResponseSchema = z.object({ signature: z.string() }).openapi("SignResponse");
-export type SignResponse = z.infer<typeof signResponseSchema>;
