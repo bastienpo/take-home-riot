@@ -6,12 +6,17 @@ import { jsonObjectSchema } from "./dto";
 
 const encryptedObjectSchema = z.record(z.string(), z.string());
 const jsonResponseSchema: z.ZodType<Record<string, unknown>> = jsonObjectSchema;
+const validationErrorSchema = z.object({
+  success: z.literal(false),
+  error: z.object({ name: z.literal("ZodError"), message: z.string() }),
+});
 
 const encryptRoute = createRoute({
   method: "post",
   path: "/encrypt",
   request: {
     body: {
+      required: true,
       content: {
         "application/json": { schema: jsonObjectSchema },
       },
@@ -25,7 +30,15 @@ const encryptRoute = createRoute({
       },
     },
     400: {
-      description: "Request body is malformed JSON or is not a JSON object",
+      description: "Request body is missing, malformed JSON, or not a JSON object",
+      content: {
+        "text/plain": { schema: z.string() },
+        "application/json": { schema: validationErrorSchema },
+      },
+    },
+    415: {
+      description: "Request content type is not JSON",
+      content: { "text/plain": { schema: z.string() } },
     },
   },
 });
@@ -35,6 +48,7 @@ const decryptRoute = createRoute({
   path: "/decrypt",
   request: {
     body: {
+      required: true,
       content: {
         "application/json": { schema: jsonObjectSchema },
       },
@@ -48,7 +62,15 @@ const decryptRoute = createRoute({
       },
     },
     400: {
-      description: "Request body is malformed JSON or is not a JSON object",
+      description: "Request body is missing, malformed JSON, or not a JSON object",
+      content: {
+        "text/plain": { schema: z.string() },
+        "application/json": { schema: validationErrorSchema },
+      },
+    },
+    415: {
+      description: "Request content type is not JSON",
+      content: { "text/plain": { schema: z.string() } },
     },
   },
 });
@@ -58,12 +80,12 @@ export function createEncryptionRoutes(service: EncryptionService) {
 
   routes.openapi(encryptRoute, (context) => {
     const payload = context.req.valid("json");
-    return context.json(encryptFields(payload, service));
+    return context.json(encryptFields(payload, service), 200);
   });
 
   routes.openapi(decryptRoute, (context) => {
     const payload = context.req.valid("json");
-    return context.json<Record<string, unknown>>(decryptFields(payload, service));
+    return context.json<Record<string, unknown>, 200>(decryptFields(payload, service), 200);
   });
 
   return routes;

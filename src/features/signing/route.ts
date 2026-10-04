@@ -24,7 +24,12 @@ const signRoute = createRoute({
       },
     },
     400: {
-      description: "Request body is malformed JSON",
+      description: "Request body is missing or malformed JSON",
+      content: { "text/plain": { schema: z.string() } },
+    },
+    415: {
+      description: "Request content type is not JSON",
+      content: { "text/plain": { schema: z.string() } },
     },
   },
 });
@@ -45,7 +50,15 @@ const verifyRoute = createRoute({
       description: "Signature is valid",
     },
     400: {
-      description: "Request body is malformed JSON or the signature is invalid",
+      description: "Request body is missing, malformed JSON, or the signature is invalid",
+      content: {
+        "text/plain": { schema: z.string() },
+        "application/json": { schema: errorResponseSchema },
+      },
+    },
+    415: {
+      description: "Request content type is not JSON",
+      content: { "text/plain": { schema: z.string() } },
     },
     422: {
       description: "Request body does not match the verification DTO",
