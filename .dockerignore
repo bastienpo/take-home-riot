@@ -1,0 +1,11 @@
+node_modules
+.git
+.fallow
+.flox
+.env
+.env.*
+.envrc
+tests
+**/*.test.ts
+coverage
+README.md
