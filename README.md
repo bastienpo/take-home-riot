@@ -52,24 +52,24 @@ The application defaults to port 3000 when `PORT` is unset.
 ```
 take-home-riot/
 ├── src/
-│   ├── app.ts
+│   ├── create-app.ts
 │   ├── env.ts
 │   ├── index.ts
 │   └── features/
 │       ├── encryption/
-│       │   ├── base64-encryption.service.ts
+│       │   ├── create-base64-encryption-service.ts
 │       │   ├── decrypt-fields.test.ts
 │       │   ├── decrypt-fields.ts
 │       │   ├── dto.ts
 │       │   ├── encrypt-fields.ts
 │       │   ├── encrypt-fields.test.ts
 │       │   ├── encryption.service.ts
-│       │   └── route.ts
+│       │   └── create-encryption-routes.ts
 │       └── signing/
-│           ├── canonical-json.ts
+│           ├── sort-json-keys.ts
 │           ├── dto.ts
-│           ├── hmac-signing.service.ts
-│           ├── route.ts
+│           ├── create-hmac-signing-service.ts
+│           ├── create-signing-routes.ts
 │           ├── sign.test.ts
 │           ├── signing.service.ts
 │           └── verify.test.ts
@@ -78,7 +78,7 @@ take-home-riot/
     │   ├── encryption.test.ts
     │   └── signing.test.ts
     └── utils/
-        └── http.ts
+        └── post-json.ts
 ```
 
 ## Architecture
@@ -87,7 +87,7 @@ There are two self-contained modules. Each declares its own routes, DTOs, servic
 
 ### Encryption and decryption
 
-This module provides the two POST routes `/encrypt` and `/decrypt`. It exposes an `EncryptionService` interface with a Base64 encoding implementation, `base64EncryptionService`. The interface allows the implementation to be replaced.
+This module provides the two POST routes `/encrypt` and `/decrypt`. It exposes an `EncryptionService` interface with a Base64 encoding implementation, `createBase64EncryptionService`. The interface allows the implementation to be replaced.
 
 ### Signing
 

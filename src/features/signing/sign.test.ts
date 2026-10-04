@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
-import { sortJsonKeys } from "./canonical-json";
-import { createHmacSigningService } from "./hmac-signing.service";
+import { sortJsonKeys } from "./sort-json-keys";
+import { createHmacSigningService } from "./create-hmac-signing-service";
 
 test("signs an empty object", () => {
   const service = createHmacSigningService("signing-verification-fixture");

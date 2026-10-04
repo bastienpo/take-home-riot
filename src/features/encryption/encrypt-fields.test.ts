@@ -1,6 +1,8 @@
 import { expect, test } from "bun:test";
-import { base64EncryptionService } from "./base64-encryption.service";
+import { createBase64EncryptionService } from "./create-base64-encryption-service";
 import { encryptFields } from "./encrypt-fields";
+
+const base64EncryptionService = createBase64EncryptionService();
 
 test("encodes an empty input to an empty object", () => {
   expect(encryptFields({}, base64EncryptionService)).toEqual({});

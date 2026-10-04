@@ -1,9 +1,9 @@
 import { OpenAPIHono } from "@hono/zod-openapi";
 import { env } from "./env";
-import { base64EncryptionService } from "./features/encryption/base64-encryption.service";
-import { createEncryptionRoutes } from "./features/encryption/route";
-import { createHmacSigningService } from "./features/signing/hmac-signing.service";
-import { createSigningRoutes } from "./features/signing/route";
+import { createBase64EncryptionService } from "./features/encryption/create-base64-encryption-service";
+import { createEncryptionRoutes } from "./features/encryption/create-encryption-routes";
+import { createHmacSigningService } from "./features/signing/create-hmac-signing-service";
+import { createSigningRoutes } from "./features/signing/create-signing-routes";
 import { Scalar } from "@scalar/hono-api-reference";
 
 const OPENAPI_URL = "/openapi.json";
@@ -29,7 +29,7 @@ export function createApp() {
     },
   });
 
-  app.route("/", createEncryptionRoutes(base64EncryptionService));
+  app.route("/", createEncryptionRoutes(createBase64EncryptionService()));
   app.route("/", createSigningRoutes(createHmacSigningService(env.HMAC_SECRET)));
 
   return app;

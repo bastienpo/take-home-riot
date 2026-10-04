@@ -1,5 +1,5 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
-import { sortJsonKeys } from "./canonical-json";
+import { sortJsonKeys } from "./sort-json-keys";
 import { signRequestSchema, signResponseSchema, verifyRequestSchema } from "./dto";
 import type { SigningService } from "./signing.service";
 

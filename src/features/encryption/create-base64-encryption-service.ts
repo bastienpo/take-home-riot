@@ -1,16 +1,16 @@
 import type { EncryptionService } from "./encryption.service";
 import { jsonValueSchema, type JsonValue } from "./dto";
 
-export const base64EncryptionService: EncryptionService = {
-  encrypt(value: JsonValue): string {
+export function createBase64EncryptionService(): EncryptionService {
+  function encrypt(value: JsonValue): string {
     return Buffer.from(JSON.stringify(value), "utf8").toString("base64");
-  },
+  }
 
-  decrypt(value: string): JsonValue {
+  function decrypt(value: string): JsonValue {
     return jsonValueSchema.parse(JSON.parse(Buffer.from(value, "base64").toString("utf8")));
-  },
+  }
 
-  isEncoded(value: unknown): value is string {
+  function isEncoded(value: unknown): value is string {
     if (typeof value !== "string") {
       return false;
     }
@@ -26,5 +26,7 @@ export const base64EncryptionService: EncryptionService = {
     } catch {
       return false;
     }
-  },
-};
+  }
+
+  return { encrypt, decrypt, isEncoded };
+}

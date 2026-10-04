@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
-import { createApp } from "@/app";
-import { postJson } from "../utils/http";
+import { createApp } from "@/create-app";
+import { postJson } from "../utils/post-json";
 
 const app = createApp();
 

@@ -1,5 +1,5 @@
 import { serve } from "bun";
-import { createApp } from "./app";
+import { createApp } from "./create-app";
 import { env } from "./env";
 
 const app = createApp();
