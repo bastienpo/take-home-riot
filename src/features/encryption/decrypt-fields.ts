@@ -1,6 +1,6 @@
 import { mapValues } from "es-toolkit/object";
 import type { EncryptionService } from "./encryption.service";
-import type { JsonObject, JsonValue } from "./json.schema";
+import type { JsonObject, JsonValue } from "./dto";
 
 export function decryptFields(input: JsonObject, service: EncryptionService): JsonObject {
   const decryptIfEncoded = (value: JsonValue) =>

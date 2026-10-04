@@ -1,5 +1,5 @@
 import type { EncryptionService } from "./encryption.service";
-import { jsonValueSchema, type JsonValue } from "./json.schema";
+import { jsonValueSchema, type JsonValue } from "./dto";
 
 export const base64EncryptionService: EncryptionService = {
   encrypt(value: JsonValue): string {

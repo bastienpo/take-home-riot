@@ -1,4 +1,4 @@
-import type { JsonValue } from "./json.schema";
+import type { JsonValue } from "./dto";
 
 export interface EncryptionService {
   encrypt(value: JsonValue): string;
