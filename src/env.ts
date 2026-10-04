@@ -3,7 +3,7 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    PORT: z.coerce.number().int().positive().default(3000),
+    PORT: z.coerce.number().int().positive().max(65535).default(3000),
     HMAC_SECRET: z.string().min(1),
   },
   runtimeEnv: process.env,
