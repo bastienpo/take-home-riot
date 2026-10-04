@@ -2,8 +2,8 @@
   "name": "take-home-riot",
   "scripts": {
     "dev": "bun run --hot src/index.ts",
-    "lint": "oxlint src",
-    "lint:fix": "oxlint src --fix",
+    "lint": "oxlint src tests",
+    "lint:fix": "oxlint src tests --fix",
     "format": "oxfmt",
     "format:check": "oxfmt --check",
     "fallow": "fallow",
