@@ -1,6 +1,6 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { decryptFields } from "./decrypt-fields";
-import { encryptFields } from "./encryp-fields";
+import { encryptFields } from "./encrypt-fields";
 import type { EncryptionService } from "./encryption.service";
 import { jsonObjectSchema } from "./dto";
 

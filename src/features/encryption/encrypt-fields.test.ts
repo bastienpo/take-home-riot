@@ -1,6 +1,6 @@
 import { expect, test } from "bun:test";
 import { base64EncryptionService } from "./base64-encryption.service";
-import { encryptFields } from "./encryp-fields";
+import { encryptFields } from "./encrypt-fields";
 
 test("encodes an empty input to an empty object", () => {
   expect(encryptFields({}, base64EncryptionService)).toEqual({});
