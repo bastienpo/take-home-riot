@@ -1,10 +1,4 @@
-import { z } from "@hono/zod-openapi";
+import type { z } from "zod";
+import type { signRequestSchema } from "./create-signing-routes";
 
-export const signRequestSchema = z.json().openapi("SignRequest");
 export type SignRequest = z.infer<typeof signRequestSchema>;
-
-export const verifyRequestSchema = z
-  .object({ signature: z.string(), data: signRequestSchema })
-  .openapi("VerifyRequest");
-
-export const signResponseSchema = z.object({ signature: z.string() }).openapi("SignResponse");

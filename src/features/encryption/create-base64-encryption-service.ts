@@ -1,5 +1,6 @@
 import type { EncryptionService } from "./encryption.service";
-import { jsonValueSchema, type JsonValue } from "./dto";
+import type { JsonValue } from "./dto";
+import { z } from "zod";
 
 export function createBase64EncryptionService(): EncryptionService {
   function encrypt(value: JsonValue): string {
@@ -7,7 +8,7 @@ export function createBase64EncryptionService(): EncryptionService {
   }
 
   function decrypt(value: string): JsonValue {
-    return jsonValueSchema.parse(JSON.parse(Buffer.from(value, "base64").toString("utf8")));
+    return z.json().parse(JSON.parse(Buffer.from(value, "base64").toString("utf8")));
   }
 
   function isEncoded(value: unknown): value is string {
@@ -21,7 +22,7 @@ export function createBase64EncryptionService(): EncryptionService {
     }
 
     try {
-      jsonValueSchema.parse(JSON.parse(decoded.toString("utf8")));
+      z.json().parse(JSON.parse(decoded.toString("utf8")));
       return true;
     } catch {
       return false;

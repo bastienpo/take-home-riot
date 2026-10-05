@@ -1,7 +1,5 @@
-import { z } from "@hono/zod-openapi";
-
-export const jsonValueSchema = z.json().openapi("JsonValue");
-export const jsonObjectSchema = z.record(z.string(), jsonValueSchema);
+import type { z } from "zod";
+import type { jsonValueSchema, jsonObjectSchema } from "./create-encryption-routes";
 
 export type JsonValue = z.infer<typeof jsonValueSchema>;
 export type JsonObject = z.infer<typeof jsonObjectSchema>;

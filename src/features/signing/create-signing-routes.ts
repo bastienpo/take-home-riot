@@ -1,8 +1,13 @@
 import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
-import { sortJsonKeys } from "./sort-json-keys";
-import { signRequestSchema, signResponseSchema, verifyRequestSchema } from "./dto";
+import { signObject } from "./sign-object";
+import { verifyObject } from "./verify-object";
 import type { SigningService } from "./signing.service";
 
+export const signRequestSchema = z.json().openapi("SignRequest");
+const verifyRequestSchema = z
+  .object({ signature: z.string(), data: signRequestSchema })
+  .openapi("VerifyRequest");
+const signResponseSchema = z.object({ signature: z.string() }).openapi("SignResponse");
 const errorResponseSchema = z.object({ error: z.string() });
 
 const signRoute = createRoute({
@@ -74,14 +79,14 @@ export function createSigningRoutes(service: SigningService) {
 
   routes.openapi(signRoute, (context) => {
     const payload = context.req.valid("json");
-    return context.json({ signature: service.sign(sortJsonKeys(payload)) }, 200);
+    return context.json({ signature: signObject(payload, service) }, 200);
   });
 
   routes.openapi(
     verifyRoute,
     (context) => {
       const { data, signature } = context.req.valid("json");
-      if (!service.verify(sortJsonKeys(data), signature)) {
+      if (!verifyObject(data, signature, service)) {
         return context.json({ error: "Invalid signature" }, 400);
       }
 

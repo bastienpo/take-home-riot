@@ -2,7 +2,8 @@ import { createRoute, OpenAPIHono, z } from "@hono/zod-openapi";
 import { decryptFields } from "./decrypt-fields";
 import { encryptFields } from "./encrypt-fields";
 import type { EncryptionService } from "./encryption.service";
-import { jsonObjectSchema } from "./dto";
+export const jsonValueSchema = z.json().openapi("JsonValue");
+export const jsonObjectSchema = z.record(z.string(), jsonValueSchema);
 
 const encryptedObjectSchema = z.record(z.string(), z.string());
 const jsonResponseSchema: z.ZodType<Record<string, unknown>> = jsonObjectSchema;
