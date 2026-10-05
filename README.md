@@ -66,14 +66,17 @@ take-home-riot/
 │       │   ├── encryption.service.ts
 │       │   └── create-encryption-routes.ts
 │       └── signing/
-│           ├── sort-json-keys.ts
+│           ├── sign-object.ts
+│           ├── sortkeys.utils.ts
+│           ├── verify-object.ts
 │           ├── dto.ts
 │           ├── create-hmac-signing-service.ts
 │           ├── create-signing-routes.ts
-│           ├── sign.test.ts
+│           ├── sign-object.test.ts
 │           ├── signing.service.ts
-│           └── verify.test.ts
+│           └── verify-object.test.ts
 └── tests/
+    ├── setup.ts
     ├── integration/
     │   ├── encryption.test.ts
     │   └── signing.test.ts
@@ -108,7 +111,7 @@ The project also uses T3 Env to validate environment variables, including the HM
 
 The project has two types of tests:
 
-1. Unit tests validate the behavior required by the assignment. In a production project, these tests would cover the core business logic. They are located alongside the code they test.
+1. Unit tests validate the invariant required by the assignment, the core business logic. They are located alongside the code they test.
 2. Integration tests check the complete API flow, including request validation, response bodies, and status codes.
 
 ### Code quality
